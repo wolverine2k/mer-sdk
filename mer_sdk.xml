@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+  <!-- Copied from default.xml for CM12.1 -->
+  <remote  name="aosp"
+           fetch="https://android.googlesource.com"
+           review="android-review.googlesource.com"
+           revision="refs/tags/android-5.1.1_r6" />
+
+  <remote  name="github"
+           fetch=".."
+           review="review.cyanogenmod.org" />
+
+  <remote  name="private"
+           fetch="ssh://git@github.com" />
+
+  <default revision="refs/heads/cm-12.1"
+           remote="github"
+           sync-c="true"
+           sync-j="4" />
+
+    <!-- Add MerSDK specific projects here.
+    1: Add MerSDK specific projects here
+    2: Remove projects with collision and add MerSDK specific ones
+    -->
+  <remove-project name="CyanogenMod/android_build" />
+  <project path="build" name="mer-hybris/android_build" groups="pdk" revision="hybris-12.1">
+    <copyfile src="core/root.mk" dest="Makefile" />
+  </project>
+  <project path="hybris/hybris-boot" name="mer-hybris/hybris-boot" revision="hybris-10.1"/>
+  <!-- Maybe master is needed for new device?-->
+  <project path="rpm" name="mer-hybris/droid-hal-device" revision="hybris-10.1"/>
+  <project path="hybris/droid-hal-configs" name="mer-hybris/droid-hal-configs" remote="github" revision="master"/>
+  <project path="hybris/droid-hal-version" name="mer-hybris/droid-hal-version" remote="github" revision="master"/>
+  <project path="hybris/mer-kernel-check" name="mer-hybris/mer-kernel-check" revision="master" />
+  <project path="external/droidmedia" name="sailfishos/droidmedia" revision="master" />
+
+  <remove-project name="CyanogenMod/android_bionic" />
+  <project path="bionic" name="mer-hybris/android_bionic" groups="pdk" revision="hybris-12.1" />
+
+  <!-- leaving as it is on hybris-11.0, will deal with (huge) rebasing later, if ever needed -->
+  <remove-project name="CyanogenMod/android_external_busybox" />
+  <project path="external/busybox" name="mer-hybris/android_external_busybox" revision="hybris-11.0" />
+
+  <remove-project name="CyanogenMod/android_system_core" />
+  <project path="system/core" name="mer-hybris/android_system_core" groups="pdk"  revision="hybris-12.1" />
+
+  <project path="device/oppo/find5" name="wolverine2k/android_device_oppo_find5" revision="cm-12.1"/>
+  <project path="kernel/oppo/n1/" name="wolverine2k/android_kernel_oppo_n1" revision="cm-12.1"/>
+
+    <!-- remove aosp standard projects and replace with cyanogenmod versions 
+    <remove-project name="platform/bootable/recovery" />
+    <remove-project name="platform/external/yaffs2" />
+    <remove-project name="platform/external/zlib" />
+    <project path="bootable/recovery" name="CyanogenMod/android_bootable_recovery" remote="github" revision="cm-10.1" />
+    <project path="external/yaffs2" name="CyanogenMod/android_external_yaffs2" remote="github" revision="cm-10.1" />
+    <project path="external/zlib" name="CyanogenMod/android_external_zlib" remote="github" revision="cm-10.1" /> 
+ -->
+    <!-- add busybox from the cyanogenmod repository 
+    <project path="external/busybox" name="CyanogenMod/android_external_busybox" remote="github" revision="cm-10.1" />
+ -->
+</manifest>
